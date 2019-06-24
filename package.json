@@ -1,0 +1,23 @@
+{
+  "name": "music-sync-cli",
+  "version": "1.0.0",
+  "license": "MIT",
+  "bin": {
+    "outside": "bin/sync-cli.js"
+  },
+  "scripts": {},
+  "devDependencies": {},
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "clipboardy": "^2.0.0",
+    "express": "^4.17.1",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "minimist": "^1.2.0",
+    "opn": "^6.0.0",
+    "spotify-web-api-node": "^4.0.0"
+  },
+  "main": "app.js",
+  "author": "",
+  "description": ""
+}
