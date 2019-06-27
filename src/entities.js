@@ -30,3 +30,5 @@ class Track extends MusicArtifact {
         // Logic to determine likihood of a match
     }
 }
+
+module.exports = { MusicArtifact, Album, Track};

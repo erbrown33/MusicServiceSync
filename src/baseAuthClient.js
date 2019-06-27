@@ -1,7 +1,8 @@
 class BaseAuthClient {
-    source;
 
-    constructor()
+    constructor(source) {
+        this.source = source;
+    }
 
     getUserToken() {
         throw new Error('Auth client must implement the getUserToken() function.');
@@ -11,3 +12,5 @@ class BaseAuthClient {
         throw new Error('Auth client must implement the getAppToken() function.');
     }
 }
+
+module.exports = BaseAuthClient;
