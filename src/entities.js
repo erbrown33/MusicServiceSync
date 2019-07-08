@@ -1,33 +1,37 @@
 const constants = require('../lib/constants');
 
 class MusicArtifact {
-    source = constants.SOURCE_APPLE;
+    constructor(source) {
+        this.source = source;
+    }
 }
 
 class Album extends MusicArtifact {
-    name;
-    artistName;
-    realeaseDate;
-    trackCount;
 
-    constructor(name) {
+    constructor(source, name) {
+        super(source);
         this.name = name;
     }
 }
 
 class Track extends MusicArtifact {
-    name;
-    length;
-    number;
-    album;
 
-    constructor(name, album) {
+    constructor(source, name, album) {
+        super(source);
         this.name = name;
         this.album = album;
     }
 
     isMatch(track) {
         // Logic to determine likihood of a match
+    }
+}
+
+class Playlist extends MusicArtifact {
+    constructor(source, name) {
+        super(source);
+        this.name = name;
+        this.tracks = [];
     }
 }
 

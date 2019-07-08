@@ -3,15 +3,15 @@ const opn = require('opn');
 const express = require('express')
 const chalk = require('chalk')
 const argv = require('minimist')(process.argv.slice(2))
-const clipboardy = require('clipboardy')
 const BaseAuthClient = require('./baseAuthClient');
 const constants = require('../lib/constants');
+const config =require('../config.json');
 
 const app = express();
 var server;
 
 const PORT = argv.port || 4815
-const CLIENT_ID = argv.clientId || '2fcef4a4a1614ec8bf04dab266d9ad8a'
+const CLIENT_ID = argv.clientId || config.spotify.clientId;
 const SHOW_DIALOG = argv.showDialog || false
 const SCOPE = argv.scope ? argv.scope.split(',').join('%20') : [
   'user-read-private',
@@ -67,9 +67,7 @@ class SpotifyAuthClient extends BaseAuthClient {
         res.sendStatus(200)
         const token = req.query.access_token
         if (token) {
-          clipboardy.writeSync(token)
           console.log(chalk.green('Your token is: '), chalk.bold(token))
-          console.log('(It has been copied to your clipboard)')
           resolve(token);
         } else {
           reject(Error('Valid Spotify user token was not returned from authorization service.'));

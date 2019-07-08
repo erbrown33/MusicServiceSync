@@ -1,0 +1,10 @@
+class MusicMapper {
+
+    mapSourcePlaylist() {
+
+    }
+
+    mapSourceTrack() {
+        
+    }
+}

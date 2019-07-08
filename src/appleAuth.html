@@ -10,27 +10,34 @@
 <body>
     <script>
         document.addEventListener('musickitloaded', function () {
-            // MusicKit global is now defined
-            MusicKit.configure({
-                developerToken: 'eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ikg3WlFZNzI5Q1kifQ.eyJpYXQiOjE1NjAyMTg5NTcsImV4cCI6MTU3MDU4Njk1NywiaXNzIjoiTTk5ODJLQURRTiJ9.B4OzCC_Gc0FbJgflkAO_EnTTZyi0faoqiy0jnAX2Eb_8mLgKkU6LyxuVMAYqLT4lBZ7k3eKX57ugQThFp7Aaow',
-                app: {
-                    name: 'Music Sync',
-                    build: '0.0.1.1'
-                }
-            });
+            // Little hack to get our dev token using express
+            fetch('/devToken')
+                .then((response) => {
+                    return response.text();
+                })
+                .then((text) => {
+                    // MusicKit global is now defined
+                    MusicKit.configure({
+                        developerToken: text,
+                        app: {
+                            name: 'Music Sync',
+                            build: '0.0.1.1'
+                        }
+                    });
 
-            // Kickoff user authorization
-            let music = MusicKit.getInstance();
-            music.authorize().then(() => {
-                if (music.musicUserToken) {
-                    console.log("User token: " + music.musicUserToken);
-                    console.log("Dev token: " + music.developerToken);
-                } else {
-                    console.log("Crap...no token");
-                }
-            }).then(() => {
-                fetch('/token?access_token=' + encodeURIComponent(music.musicUserToken));
-            });
+                    // Kickoff user authorization
+                    let music = MusicKit.getInstance();
+                    music.authorize().then(() => {
+                        if (music.musicUserToken) {
+                            console.log("User token: " + music.musicUserToken);
+                            console.log("Dev token: " + music.developerToken);
+                        } else {
+                            console.log("Crap...no token");
+                        }
+                    }).then(() => {
+                        fetch('/token?access_token=' + encodeURIComponent(music.musicUserToken));
+                    });
+                });
         });
     </script>
 </body>

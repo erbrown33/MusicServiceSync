@@ -4,6 +4,8 @@ const express = require('express')
 const argv = require('minimist')(process.argv.slice(2))
 const BaseAuthClient = require('./baseAuthClient');
 
+const config = require('../config.json');
+
 const PORT = argv.port || 4816
 
 const URL = 'http://localhost:' + PORT + '/auth'
@@ -14,6 +16,11 @@ var server;
 class AppleAuthClient extends BaseAuthClient {
 
   processAppleMusicUserAuth() {
+    app.get('/devToken', (req, res) => {
+      console.log('Sending dev token: ' + config.apple.devToken);
+      res.send(config.apple.devToken);
+    });
+
     app.get('/auth', (req, res) => {
       res.sendFile(__dirname + '/appleAuth.html');
       console.log('Processing auth')
